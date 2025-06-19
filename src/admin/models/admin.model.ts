@@ -37,8 +37,8 @@ export class Admin extends Model<Admin, IAdminCreationAttr> {
   declare email: string;
 
   @Column({
-    type: DataType.ENUM(...Object.values(AdminRole)),
-    allowNull: false,
+      type: DataType.ENUM(...Object.values(AdminRole)),
+      allowNull: false,
   })
   declare role: AdminRole;
   @Column({

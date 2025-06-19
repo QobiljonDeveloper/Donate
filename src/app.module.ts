@@ -7,6 +7,13 @@ import { CategoryModule } from "./category/category.module";
 import { Category } from "./category/models/category.model";
 import { AdminModule } from "./admin/admin.module";
 import { Admin } from "./admin/models/admin.model";
+import { UsersModule } from "./users/users.module";
+import { User } from "./users/models/user.model";
+import { NotificationsModule } from "./notifications/notifications.module";
+import { Notification } from "./notifications/models/notification.model";
+import { DonationsModule } from "./donations/donations.module";
+import { KuryerModule } from "./kuryer/kuryer.module";
+import { Kuryer } from "./kuryer/models/kuryer.model";
 
 @Module({
   imports: [
@@ -21,7 +28,7 @@ import { Admin } from "./admin/models/admin.model";
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [Social, Category, Admin],
+      models: [Social, Category, Admin, User, Notification, Kuryer],
       autoLoadModels: true,
       logging: false,
       sync: { alter: true },
@@ -29,6 +36,10 @@ import { Admin } from "./admin/models/admin.model";
     SocialModule,
     CategoryModule,
     AdminModule,
+    UsersModule,
+    NotificationsModule,
+    DonationsModule,
+    KuryerModule,
   ],
   controllers: [],
   providers: [],
