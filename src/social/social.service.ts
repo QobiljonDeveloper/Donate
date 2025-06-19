@@ -15,11 +15,11 @@ export class SocialService {
   }
 
   async getAllSocials(): Promise<Social[]> {
-    return this.socialModel.findAll();
+    return this.socialModel.findAll({ include: { all: true } });
   }
 
   async getSocialById(id: number): Promise<Social | null> {
-    return this.socialModel.findByPk(id);
+    return this.socialModel.findByPk(id, { include: { all: true } });
   }
 
   async updateSocial(id: number, updateSocialDto: UpdateSocialDto) {

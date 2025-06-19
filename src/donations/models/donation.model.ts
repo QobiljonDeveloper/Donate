@@ -17,7 +17,7 @@ export enum paymentMethod {
 }
 
 interface IDonationCreationAttr {
-  supperterId: number;
+  supporterId: number;
   creatorId: number;
   amount: number;
   message: string;
@@ -61,7 +61,7 @@ export class Donation extends Model<Donation, IDonationCreationAttr> {
   @Column({
     type: DataType.INTEGER,
   })
-  declare supperterId: number;
+  declare supporterId: number;
 
   @ForeignKey(() => User)
   @Column({
@@ -69,8 +69,9 @@ export class Donation extends Model<Donation, IDonationCreationAttr> {
   })
   declare creatorId: number;
 
-  @BelongsTo(() => User, "supperterId")
-  supperter: User;
+  @BelongsTo(() => User, "supporterId")
+  supporter: User;
+
 
   @BelongsTo(() => User, "creatorId")
   creator: User;

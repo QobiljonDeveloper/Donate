@@ -14,6 +14,9 @@ import { Notification } from "./notifications/models/notification.model";
 import { DonationsModule } from "./donations/donations.module";
 import { KuryerModule } from "./kuryer/kuryer.module";
 import { Kuryer } from "./kuryer/models/kuryer.model";
+import { Donation } from "./donations/models/donation.model";
+import { CreatorSocialModule } from "./creator-social/creator-social.module";
+import { CreatorSocial } from "./creator-social/model/creator-social.model";
 
 @Module({
   imports: [
@@ -28,7 +31,16 @@ import { Kuryer } from "./kuryer/models/kuryer.model";
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [Social, Category, Admin, User, Notification, Kuryer],
+      models: [
+        Social,
+        Category,
+        Admin,
+        User,
+        Notification,
+        Kuryer,
+        Donation,
+        CreatorSocial,
+      ],
       autoLoadModels: true,
       logging: false,
       sync: { alter: true },
@@ -40,6 +52,7 @@ import { Kuryer } from "./kuryer/models/kuryer.model";
     NotificationsModule,
     DonationsModule,
     KuryerModule,
+    CreatorSocialModule,
   ],
   controllers: [],
   providers: [],

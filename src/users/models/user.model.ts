@@ -1,5 +1,8 @@
-import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { Notification } from "../../notifications/models/notification.model";
+import { Donation } from "../../donations/models/donation.model";
+import { Social } from "../../social/models/social.model";
+import { CreatorSocial } from "../../creator-social/model/creator-social.model";
 
 export enum UsersRole {
   CREATOR = "creator",
@@ -57,4 +60,10 @@ export class User extends Model<User, IUserCreationAttr> {
 
   @HasMany(() => Notification)
   notification: Notification[];
+
+  @HasMany(() => Donation)
+  donation: Donation[];
+
+  @BelongsToMany(()=> Social, ()=> CreatorSocial)
+  social:Social[]
 }
