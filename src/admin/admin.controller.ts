@@ -6,41 +6,56 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { AdminService } from "./admin.service";
 import { CreateAdminDto } from "./dto/create-admin.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
-import { Admin } from "./models/admin.model";
+import { RoleService } from "../role/role.service";
+import { AddRoleDto } from "./dto/add-role.dto";
 
 @Controller("admin")
 export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+  constructor(
+    private readonly adminService: AdminService,
+    private readonly roleService: RoleService
+  ) {}
 
   @Post()
-  async create(@Body() createAdminDto: CreateAdminDto): Promise<Admin> {
+  create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);
   }
 
   @Get()
-  async findAll(): Promise<Admin[]> {
+  findAll() {
     return this.adminService.findAll();
   }
 
   @Get(":id")
-  async findOne(@Param("id") id: string): Promise<Admin> {
-    return this.adminService.findOne(+id);
+  findOne(@Param("id", ParseIntPipe) id: number) {
+    return this.adminService.findOne(id);
   }
 
   @Patch(":id")
-  async update(
-    @Param("id") id: string,
+  update(
+    @Param("id", ParseIntPipe) id: number,
     @Body() updateAdminDto: UpdateAdminDto
-  ): Promise<Admin> {
-    return this.adminService.update(+id, updateAdminDto);
+  ) {
+    return this.adminService.update(id, updateAdminDto);
   }
 
   @Delete(":id")
-  async remove(@Param("id") id: string): Promise<string> {
-    return this.adminService.remove(+id);
+  remove(@Param("id", ParseIntPipe) id: number) {
+    return this.adminService.remove(id);
+  }
+
+  @Post("add-role")
+  async addRole(@Body() dto: AddRoleDto) {
+    return this.adminService.addRoleByName(dto);
+  }
+
+  @Delete("remove-role")
+  async removeRole(@Body() dto: AddRoleDto) {
+    return this.adminService.removeRoleByName(dto);
   }
 }

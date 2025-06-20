@@ -21,6 +21,9 @@ import { ProductsModule } from "./products/products.module";
 import { Product } from "./products/models/product.model";
 import { ProductImagesModule } from "./product_images/product_images.module";
 import { ProductImage } from "./product_images/models/product_image.mode";
+import { RoleModule } from './role/role.module';
+import { Role } from "./role/models/role.model";
+import { AdminRoleModel } from "./admin/models/admin-role.model";
 
 @Module({
   imports: [
@@ -46,6 +49,8 @@ import { ProductImage } from "./product_images/models/product_image.mode";
         CreatorSocial,
         Product,
         ProductImage,
+        Role,
+        AdminRoleModel
       ],
       autoLoadModels: true,
       logging: false,
@@ -61,6 +66,7 @@ import { ProductImage } from "./product_images/models/product_image.mode";
     CreatorSocialModule,
     ProductsModule,
     ProductImagesModule,
+    RoleModule,
   ],
   controllers: [],
   providers: [],

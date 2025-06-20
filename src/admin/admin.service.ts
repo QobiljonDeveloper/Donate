@@ -2,11 +2,14 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  BadRequestException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { CreateAdminDto } from "./dto/create-admin.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
 import { Admin } from "./models/admin.model";
+import { Role } from "../role/models/role.model";
+import { AddRoleDto } from "./dto/add-role.dto";
 
 @Injectable()
 export class AdminService {
@@ -25,11 +28,13 @@ export class AdminService {
   }
 
   async findAll(): Promise<Admin[]> {
-    return this.adminModel.findAll();
+    return this.adminModel.findAll({ include: { all: true } });
   }
 
   async findOne(id: number): Promise<Admin> {
-    const admin = await this.adminModel.findByPk(id);
+    const admin = await this.adminModel.findByPk(id, {
+      include: { all: true },
+    });
     if (!admin) throw new NotFoundException(`Admin ID ${id} topilmadi`);
     return admin;
   }
@@ -58,5 +63,32 @@ export class AdminService {
     }
 
     return `${id} - IDli admin o‘chirildi`;
+  }
+  async addRoleByName(dto: AddRoleDto): Promise<Admin | null> {
+    const admin = await this.adminModel.findByPk(dto.adminId);
+    if (!admin) throw new NotFoundException("Admin topilmadi");
+
+    const role = await Role.findOne({ where: { name: dto.name } });
+    if (!role) throw new NotFoundException("Role topilmadi");
+
+    await admin.$add("roles", role.id);
+
+    return await this.adminModel.findByPk(dto.adminId, {
+      include: { all: true },
+    });
+  }
+
+  async removeRoleByName(dto: AddRoleDto): Promise<Admin | null> {
+    const admin = await this.adminModel.findByPk(dto.adminId);
+    if (!admin) throw new NotFoundException("Admin topilmadi");
+
+    const role = await Role.findOne({ where: { name: dto.name } });
+    if (!role) throw new NotFoundException("Role topilmadi");
+
+    await admin.$remove("roles", role.id);
+
+    return await this.adminModel.findByPk(dto.adminId, {
+      include: { all: true },
+    });
   }
 }

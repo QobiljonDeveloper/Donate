@@ -1,15 +1,12 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import { Role } from "../../role/models/role.model";
+import { AdminRoleModel } from "./admin-role.model";
 
-export enum AdminRole {
-  SUPERADMIN = "superadmin",
-  ADMIN = "admin",
-  MODERATOR = "moderator",
-}
+
 
 interface IAdminCreationAttr {
   full_name: string;
   email: string;
-  role: AdminRole;
   password_hash: string;
   is_active: boolean;
 }
@@ -36,11 +33,7 @@ export class Admin extends Model<Admin, IAdminCreationAttr> {
   })
   declare email: string;
 
-  @Column({
-      type: DataType.ENUM(...Object.values(AdminRole)),
-      allowNull: false,
-  })
-  declare role: AdminRole;
+ 
   @Column({
     type: DataType.TEXT,
     allowNull: false,
@@ -51,4 +44,7 @@ export class Admin extends Model<Admin, IAdminCreationAttr> {
     type: DataType.BOOLEAN,
   })
   declare is_active: boolean;
+
+  @BelongsToMany(()=> Role,()=> AdminRoleModel)
+  roles:Role[]
 }
