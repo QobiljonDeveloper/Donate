@@ -17,6 +17,10 @@ import { Kuryer } from "./kuryer/models/kuryer.model";
 import { Donation } from "./donations/models/donation.model";
 import { CreatorSocialModule } from "./creator-social/creator-social.module";
 import { CreatorSocial } from "./creator-social/model/creator-social.model";
+import { ProductsModule } from "./products/products.module";
+import { Product } from "./products/models/product.model";
+import { ProductImagesModule } from "./product_images/product_images.module";
+import { ProductImage } from "./product_images/models/product_image.mode";
 
 @Module({
   imports: [
@@ -40,6 +44,8 @@ import { CreatorSocial } from "./creator-social/model/creator-social.model";
         Kuryer,
         Donation,
         CreatorSocial,
+        Product,
+        ProductImage,
       ],
       autoLoadModels: true,
       logging: false,
@@ -53,6 +59,8 @@ import { CreatorSocial } from "./creator-social/model/creator-social.model";
     DonationsModule,
     KuryerModule,
     CreatorSocialModule,
+    ProductsModule,
+    ProductImagesModule,
   ],
   controllers: [],
   providers: [],

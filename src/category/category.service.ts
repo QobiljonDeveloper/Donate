@@ -22,11 +22,11 @@ export class CategoryService {
     return this.categoryModel.create(createCategoryDto);
   }
   async getAllCategories(): Promise<Category[]> {
-    return this.categoryModel.findAll();
+    return this.categoryModel.findAll({ include: { all: true } });
   }
 
   getCategoryById(id: number): Promise<Category | null> {
-    return this.categoryModel.findByPk(id);
+    return this.categoryModel.findByPk(id, { include: { all: true } });
   }
 
   async updateSocial(id: number, updateCategoryDto: UpdateCategoryDto) {
