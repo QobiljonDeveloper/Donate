@@ -37,6 +37,7 @@ export class Donation extends Model<Donation, IDonationCreationAttr> {
   @Column({
     type: DataType.DECIMAL(15, 2),
     allowNull: false,
+    defaultValue: 0,
   })
   declare amount: number;
 
@@ -71,7 +72,6 @@ export class Donation extends Model<Donation, IDonationCreationAttr> {
 
   @BelongsTo(() => User, "supporterId")
   supporter: User;
-
 
   @BelongsTo(() => User, "creatorId")
   creator: User;
