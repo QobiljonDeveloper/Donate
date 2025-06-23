@@ -11,6 +11,9 @@ import { Donation } from "../../donations/models/donation.model";
 import { Social } from "../../social/models/social.model";
 import { CreatorSocial } from "../../creator-social/model/creator-social.model";
 import { Product } from "../../products/models/product.model";
+import { ProductOrder } from "../../product-orders/models/product-order.model";
+import { Withdraw } from "../../withdraws/models/withdraw.model";
+import { SavedItem } from "../../saved-items/models/saved-item.model";
 
 export enum UsersRole {
   CREATOR = "creator",
@@ -77,4 +80,13 @@ export class User extends Model<User, IUserCreationAttr> {
 
   @HasMany(() => Product)
   product: Product[];
+
+  @HasMany(() => ProductOrder)
+  order: ProductOrder[];
+
+  @HasMany(() => Withdraw)
+  withdraw: Withdraw[];
+
+  @HasMany(() => SavedItem)
+  savedItem: SavedItem[];
 }

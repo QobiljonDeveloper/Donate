@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { ProductOrder } from "../../product-orders/models/product-order.model";
 
 export enum VehicleType {
   FOOT = "foot",
@@ -50,4 +51,7 @@ export class Kuryer extends Model<Kuryer, IKuryerCreationAttr> {
     type: DataType.BOOLEAN,
   })
   declare is_active: boolean;
+
+  @HasMany(() => ProductOrder)
+  order: ProductOrder[];
 }

@@ -13,64 +13,46 @@ import { UpdateProductImageDto } from "./dto/update-product_image.dto";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { ProductImage } from "./models/product_image.mode";
 
+@ApiTags("ProductImages")
 @Controller("images")
 export class ProductImagesController {
   constructor(private readonly productImagesService: ProductImagesService) {}
 
   @Post()
-  @ApiOperation({ summary: "Yangi mahsulot rasmi qo‘shish" })
+  @ApiOperation({ summary: "Yangi mahsulot rasmi yuklash" })
   @ApiResponse({
     status: 201,
-    description: "Rasm muvaffaqiyatli qo‘shildi",
+    description: "Rasm saqlandi",
     type: ProductImage,
   })
-  create(@Body() createProductImageDto: CreateProductImageDto) {
-    return this.productImagesService.create(createProductImageDto);
+  create(@Body() dto: CreateProductImageDto) {
+    return this.productImagesService.create(dto);
   }
 
   @Get()
-  @ApiOperation({ summary: "Barcha mahsulot rasmlarini olish" })
-  @ApiResponse({
-    status: 200,
-    description: "Rasmlar ro‘yxati",
-    type: [ProductImage],
-  })
+  @ApiOperation({ summary: "Barcha rasmlarni olish" })
+  @ApiResponse({ status: 200, type: [ProductImage] })
   findAll() {
     return this.productImagesService.findAll();
   }
 
   @Get(":id")
-  @ApiOperation({ summary: "ID orqali rasmni olish" })
-  @ApiResponse({
-    status: 200,
-    description: "Topilgan mahsulot rasmi",
-    type: ProductImage,
-  })
+  @ApiOperation({ summary: "Bitta rasmni olish" })
+  @ApiResponse({ status: 200, type: ProductImage })
   findOne(@Param("id") id: string) {
     return this.productImagesService.findOne(+id);
   }
 
   @Patch(":id")
-  @ApiOperation({ summary: "Mahsulot rasmini yangilash" })
-  @ApiResponse({
-    status: 200,
-    description: "Rasm muvaffaqiyatli yangilandi",
-    type: ProductImage,
-  })
-  update(
-    @Param("id") id: string,
-    @Body() updateProductImageDto: UpdateProductImageDto
-  ) {
-    return this.productImagesService.update(+id, updateProductImageDto);
+  @ApiOperation({ summary: "Rasmni yangilash" })
+  @ApiResponse({ status: 200, type: ProductImage })
+  update(@Param("id") id: string, @Body() dto: UpdateProductImageDto) {
+    return this.productImagesService.update(+id, dto);
   }
 
   @Delete(":id")
-  @ApiOperation({ summary: "Mahsulot rasmini o‘chirish" })
-  @ApiResponse({
-    status: 200,
-    description: "Rasm muvaffaqiyatli o‘chirildi",
-    type: ProductImage,
-  })
+  @ApiOperation({ summary: "Rasmni o‘chirish" })
+  @ApiResponse({ status: 200, description: "Rasm o‘chirildi" })
   remove(@Param("id") id: string) {
     return this.productImagesService.remove(+id);
   }

@@ -6,7 +6,13 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 async function start() {
   const PORT = process.env.PORT ?? 3030;
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true, 
+      forbidNonWhitelisted: true, 
+    })
+  );
   const config = new DocumentBuilder()
     .setTitle("Donation Project")
     .setDescription("Donation Project for Blogers Strimer and etc")

@@ -10,6 +10,8 @@ import {
 import { Category } from "../../category/models/category.model";
 import { User } from "../../users/models/user.model";
 import { ProductImage } from "../../product_images/models/product_image.mode";
+import { ProductOrder } from "../../product-orders/models/product-order.model";
+import { SavedItem } from "../../saved-items/models/saved-item.model";
 
 interface IProductCreationAttr {
   creatorId: number;
@@ -79,4 +81,10 @@ export class Product extends Model<Product, IProductCreationAttr> {
 
   @HasMany(() => ProductImage)
   productImage: ProductImage[];
+
+  @HasMany(() => ProductOrder)
+  order: ProductOrder[];
+
+  @HasMany(() => SavedItem)
+  savedItem: SavedItem[];
 }

@@ -21,9 +21,20 @@ import { ProductsModule } from "./products/products.module";
 import { Product } from "./products/models/product.model";
 import { ProductImagesModule } from "./product_images/product_images.module";
 import { ProductImage } from "./product_images/models/product_image.mode";
-import { RoleModule } from './role/role.module';
+import { RoleModule } from "./role/role.module";
 import { Role } from "./role/models/role.model";
 import { AdminRoleModel } from "./admin/models/admin-role.model";
+import { CreatorStatisticsModule } from "./creator-statistics/creator-statistics.module";
+import { PaymentOrdersModule } from "./product-orders/product-orders.module";
+import { ProductOrder } from "./product-orders/models/product-order.model";
+import { PaymentModule } from "./payment/payment.module";
+import { Payment } from "./payment/models/payment.model";
+import { WithdrawsModule } from "./withdraws/withdraws.module";
+import { Withdraw } from "./withdraws/models/withdraw.model";
+import { SavedItemsModule } from "./saved-items/saved-items.module";
+import { SavedItem } from "./saved-items/models/saved-item.model";
+import { CreatorStatistic } from "./creator-statistics/models/creator-statistic.model";
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -50,7 +61,12 @@ import { AdminRoleModel } from "./admin/models/admin-role.model";
         Product,
         ProductImage,
         Role,
-        AdminRoleModel
+        AdminRoleModel,
+        ProductOrder,
+        Payment,
+        Withdraw,
+        SavedItem,
+        CreatorStatistic,
       ],
       autoLoadModels: true,
       logging: false,
@@ -67,6 +83,12 @@ import { AdminRoleModel } from "./admin/models/admin-role.model";
     ProductsModule,
     ProductImagesModule,
     RoleModule,
+    CreatorStatisticsModule,
+    PaymentOrdersModule,
+    PaymentModule,
+    WithdrawsModule,
+    SavedItemsModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

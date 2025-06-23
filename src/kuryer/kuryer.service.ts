@@ -22,14 +22,16 @@ export class KuryerService {
     }
 
     return this.kuryerModel.create(createKuryerDto);
-  } 
+  }
 
   async findAll(): Promise<Kuryer[]> {
-    return this.kuryerModel.findAll();
+    return this.kuryerModel.findAll({ include: { all: true } });
   }
 
   async findOne(id: number): Promise<Kuryer> {
-    const kuryer = await this.kuryerModel.findByPk(id);
+    const kuryer = await this.kuryerModel.findByPk(id, {
+      include: { all: true },
+    });
     if (!kuryer) {
       throw new NotFoundException(`Kuryer id=${id} topilmadi`);
     }
