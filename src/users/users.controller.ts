@@ -15,6 +15,7 @@ import { ApiOperation, ApiProperty, ApiResponse } from "@nestjs/swagger";
 import { User } from "./models/user.model";
 import { JwtAuthGuard } from "../common/guards/jwt.guard";
 import { CreatorGuard } from "../common/guards/creator.guard";
+import { SelfGuard } from "../common/guards/self.guard";
 
 @Controller("users")
 export class UsersController {
@@ -51,6 +52,7 @@ export class UsersController {
     description: "Foydalanuvchilarni id bo'yicha olish",
     type: User,
   })
+  @UseGuards(JwtAuthGuard, SelfGuard)
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.usersService.findOne(+id);

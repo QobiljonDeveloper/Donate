@@ -14,7 +14,7 @@ export class SelfGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest();
     const authHeader = req.headers.authorization;
-
+    
     if (!authHeader) {
       throw new UnauthorizedException("Authorization header yo‘q");
     }
@@ -26,28 +26,34 @@ export class SelfGuard implements CanActivate {
 
     const decoded: any = this.jwtService.decode(token);
     const role = decoded?.role?.toUpperCase();
-    const secret = process.env[`SECRET_KEY_${role}`];
 
-    if (!secret) {
-      throw new UnauthorizedException("Token uchun secret aniqlanmadi");
+    if (!role) {
+      throw new UnauthorizedException("Token ichida role mavjud emas");
     }
 
+    const secret = process.env[`SECRET_KEY_${role}`];
+    if (!secret) {
+      throw new UnauthorizedException(`Secret topilmadi: SECRET_KEY_${role}`);
+    }
+
+    let verified: any;
     try {
-      const verified = this.jwtService.verify(token, { secret });
-      req.user = verified;
-
-      const paramId = Number(req.params.id);
-      if (verified.sub !== paramId) {
-        throw new ForbiddenException("Faqat o‘z profilingizga ruxsat beriladi");
-      }
-
-      if (verified.role !== "user" && verified.role !== "creator") {
-        throw new ForbiddenException("Faqat user yoki creator kirishi mumkin");
-      }
-
-      return true;
+      verified = this.jwtService.verify(token, { secret });
     } catch (err) {
       throw new UnauthorizedException("Token noto‘g‘ri yoki muddati tugagan");
     }
+
+    req.user = verified;
+
+    const paramId = Number(req.params.id);
+    if (verified.sub !== paramId) {
+      throw new ForbiddenException("Faqat o‘z profilingizga ruxsat beriladi");
+    }
+
+    if (verified.role !== "user" && verified.role !== "creator") {
+      throw new ForbiddenException("Faqat user yoki creator kirishi mumkin");
+    }
+
+    return true;
   }
 }
