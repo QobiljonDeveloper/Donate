@@ -23,6 +23,7 @@ export enum UsersRole {
 interface IUserCreationAttr {
   full_name: string;
   email: string;
+  password_hash: string;
   role: UsersRole;
   bio: string;
   avatar_url: string;
@@ -49,6 +50,10 @@ export class User extends Model<User, IUserCreationAttr> {
   })
   declare email: string;
 
+  @Column({
+    type: DataType.STRING,
+  })
+  declare password_hash: string;
   @Column({
     type: DataType.ENUM(...Object.values(UsersRole)),
     allowNull: false,

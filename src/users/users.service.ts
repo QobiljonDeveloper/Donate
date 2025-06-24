@@ -58,4 +58,7 @@ export class UsersService {
 
     return `${id} - IDli user o‘chirildi`;
   }
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userModel.findOne({ where: { email } });
+  }
 }

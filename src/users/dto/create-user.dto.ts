@@ -44,4 +44,12 @@ export class CreateUserDto {
   })
   @IsString()
   banner_url: string;
+  
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: "123456",
+    description: "Foydalanuvchining paroli, serverda hash bo'ladi",
+  })
+  password_hash: string;
 }

@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { ApiOperation, ApiProperty, ApiResponse } from "@nestjs/swagger";
 import { User } from "./models/user.model";
+import { JwtAuthGuard } from "../common/guards/jwt.guard";
+import { CreatorGuard } from "../common/guards/creator.guard";
 
 @Controller("users")
 export class UsersController {
@@ -36,6 +39,7 @@ export class UsersController {
     description: "Barcha foydalanuvchilarni olish",
     type: [User],
   })
+  @UseGuards(JwtAuthGuard, CreatorGuard)
   @Get()
   findAll() {
     return this.usersService.findAll();

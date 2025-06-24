@@ -35,6 +35,7 @@ import { SavedItemsModule } from "./saved-items/saved-items.module";
 import { SavedItem } from "./saved-items/models/saved-item.model";
 import { CreatorStatistic } from "./creator-statistics/models/creator-statistic.model";
 import { FilesModule } from './files/files.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -89,6 +90,7 @@ import { FilesModule } from './files/files.module';
     WithdrawsModule,
     SavedItemsModule,
     FilesModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
