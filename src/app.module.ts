@@ -3,9 +3,9 @@ import { SocialModule } from "./social/social.module";
 import { ConfigModule } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { Social } from "./social/models/social.model";
+import { AdminModule } from "./admin/admin.module";
 import { CategoryModule } from "./category/category.module";
 import { Category } from "./category/models/category.model";
-import { AdminModule } from "./admin/admin.module";
 import { Admin } from "./admin/models/admin.model";
 import { UsersModule } from "./users/users.module";
 import { User } from "./users/models/user.model";
@@ -34,8 +34,8 @@ import { Withdraw } from "./withdraws/models/withdraw.model";
 import { SavedItemsModule } from "./saved-items/saved-items.module";
 import { SavedItem } from "./saved-items/models/saved-item.model";
 import { CreatorStatistic } from "./creator-statistics/models/creator-statistic.model";
-import { FilesModule } from './files/files.module';
-import { AuthModule } from './auth/auth.module';
+import { FilesModule } from "./files/files.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [

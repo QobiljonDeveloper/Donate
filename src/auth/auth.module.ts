@@ -11,7 +11,8 @@ import { ConfigModule } from "@nestjs/config";
       isGlobal: true,
     }),
     JwtModule.register({
-      global: true, // 👈 Bu MUHIM
+      global: true, 
+      
     }),
     UsersModule,
   ],
